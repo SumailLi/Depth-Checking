@@ -74,7 +74,7 @@ def display_images(outputs, inputs=None, gt=None, is_colormap=True, is_rescale=T
 
     all_images = np.stack(all_images)
     
-    return skimage.util.montage(all_images, multichannel=True, fill=(0,0,0))
+    return all_images
 
 def save_images(filename, outputs, inputs=None, gt=None, is_colormap=True, is_rescale=False):
     montage =  display_images(outputs, inputs, is_colormap, is_rescale)
