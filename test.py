@@ -38,8 +38,13 @@ outputs = predict(model, inputs)
 #matplotlib.use('TkAgg')   
 
 # Display results
-viz = display_images(outputs.copy())
+out_img,in_img = display_images(outputs.copy(),inputs.copy())
 plt.figure(figsize=(10,5))
-plt.imshow(viz[0])
+plt.imshow(out_img[0])
 plt.savefig('test.png')
+plt.show()
+
+plt.figure(figsize=(10,5))
+plt.imshow(in_img[0])
+plt.savefig('test_org.png')
 plt.show()

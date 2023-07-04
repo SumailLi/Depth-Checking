@@ -45,15 +45,16 @@ def display_images(outputs, inputs=None, gt=None, is_colormap=True, is_rescale=T
 
     shape = (outputs[0].shape[0], outputs[0].shape[1], 3)
     
-    all_images = []
+    out_images = []
+    in_images = []
 
     for i in range(outputs.shape[0]):
         imgs = []
-        
+        in_imgs = []
         if isinstance(inputs, (list, tuple, np.ndarray)):
             x = to_multichannel(inputs[i])
             x = resize(x, shape, preserve_range=True, mode='reflect', anti_aliasing=True )
-            imgs.append(x)
+            in_imgs.append(x)
 
         if isinstance(gt, (list, tuple, np.ndarray)):
             x = to_multichannel(gt[i])
@@ -70,11 +71,16 @@ def display_images(outputs, inputs=None, gt=None, is_colormap=True, is_rescale=T
             imgs.append(to_multichannel(outputs[i]))
 
         img_set = np.hstack(imgs)
-        all_images.append(img_set)
+        out_images.append(img_set)
+        img_set_in = np.hstack(in_imgs)
+        in_images.append(img_set_in)
 
-    all_images = np.stack(all_images)
+
+    out_images = np.stack(out_images)
+    in_images = np.stack(in_images)
+
     
-    return all_images
+    return out_images, in_images
 
 def save_images(filename, outputs, inputs=None, gt=None, is_colormap=True, is_rescale=False):
     montage =  display_images(outputs, inputs, is_colormap, is_rescale)
