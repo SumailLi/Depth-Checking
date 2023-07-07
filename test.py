@@ -2,7 +2,8 @@ import os
 import glob
 import argparse
 import matplotlib
-
+import pandas as pd 
+import numpy as np
 # Keras / TensorFlow
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '5'
 from keras.models import load_model
@@ -33,18 +34,23 @@ print('\nLoaded ({0}) images of size {1}.'.format(inputs.shape[0], inputs.shape[
 
 # Compute results
 outputs = predict(model, inputs)
+dout = pd.DataFrame(np.squeeze(outputs[0]))
+
+dout.to_excel("depth_info.xlsx")
+  
+
 
 #matplotlib problem on ubuntu terminal fix
 #matplotlib.use('TkAgg')   
 
 # Display results
 out_img,in_img = display_images(outputs.copy(),inputs.copy())
-plt.figure(figsize=(10,5))
+#plt.figure(figsize=(10,5))
 plt.imshow(out_img[0])
 plt.savefig('test.png')
-plt.show()
+#plt.show()
 
-plt.figure(figsize=(10,5))
+#plt.figure(figsize=(10,5))
 plt.imshow(in_img[0])
 plt.savefig('test_org.png')
 plt.show()
