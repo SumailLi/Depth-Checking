@@ -37,6 +37,8 @@ outputs = predict(model, inputs)
 dout = pd.DataFrame(np.squeeze(outputs[0]))
 
 dout.to_excel("depth_info.xlsx")
+plt.imshow(outputs[0], cmap='gray')
+plt.savefig('out.png')
   
 
 
@@ -46,7 +48,7 @@ dout.to_excel("depth_info.xlsx")
 # Display results
 out_img,in_img = display_images(outputs.copy(),inputs.copy())
 #plt.figure(figsize=(10,5))
-plt.imshow(out_img[0])
+plt.imshow(out_img[0],)
 plt.savefig('test.png')
 #plt.show()
 
